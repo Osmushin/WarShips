@@ -1,12 +1,23 @@
 import random
 
+class InputValidator:
+
+    def validation(self):
+        flag = False
+        while flag == False:
+            target = input('Выберите клетку нанесения удара(например Б4):\n')
+            if target[0] in 'АБВГДЕЖЗИК' and target[1:] in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']:
+                flag == True
+                return target
+            else:
+                print('Неверно введены координаты клетки')
 class Board:
     def __init__(self, size):
         self.size = size
         self.grid = [['-' for _ in range(size)] for _ in range(size)]
 
     def print_board(self):
-        letter_scale = ['А', 'Б', 'В', 'Г', 'Д', 'Е','Ж','З','И','К']
+        letter_scale = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К']
         print('  ', end='')
         for i in range(1, self.size+1):
             print(i, end=' ')
@@ -57,7 +68,8 @@ class Game:
         while True:
             if self.turn == 0:
                 print('Ход игрока №1:')
-                target = input('Выберите клетку нанесения удара(например Б4):\n')
+                grid_change = InputValidator()
+                target = grid_change.validation()
                 if ord(target[0]) == 1050:
                     x = ord(target[0])-1041
                 else:
@@ -77,7 +89,8 @@ class Game:
                 self.turn = 1
             else:
                 print('Ход игрока №2:')
-                target = input('Выберите клетку нанесения удара(например Б4)')
+                grid_change = InputValidator()
+                target = grid_change.validation()
                 if ord(target[0]) == 1050:
                     x = ord(target[0])-1041
                 else:
